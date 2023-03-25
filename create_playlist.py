@@ -5,9 +5,6 @@ from spotipy.oauth2 import SpotifyOAuth
 def create_playlist(playlist_name, playlist_description, playlist_content):
     # authenticate
     scope = "playlist-modify-private"
-    client_id = "61db0823286147e1a994edfbbd81e334"
-    client_secret = "f7767b68141a4391b19bcc6693c48e2a"
-    redirect_uri = "http://localhost:8001/callback/"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
 
     # parse song list

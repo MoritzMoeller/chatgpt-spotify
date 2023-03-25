@@ -2,7 +2,6 @@ import openai
 
 
 def query_gpt(query):
-    openai.api_key = "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"
     print(openai.api_key)
     prefix = "Please provide a list of songs that can be described as: "
     postfix = " Please list them in the format: Song title - Artist"
