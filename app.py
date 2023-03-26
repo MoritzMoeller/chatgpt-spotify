@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect
-from create_playlist import create_playlist, create_test_playlist
-from query_gpt import test_query_gpt
+from create_playlist import create_playlist
+from query_gpt import query_gpt
 
 app = Flask(__name__)
 
@@ -12,14 +12,14 @@ def index():
 
 @app.route('/generate', methods=['GET', 'POST'])
 def generate():
-    if request.method == 'POST':
-        playlist_content = test_query_gpt()
-        playlist_name = "Test2"
-        playlist_description = "TEst playlist 2"
-        playlist_address= create_playlist(playlist_name, playlist_description, playlist_content)
-        return redirect(playlist_address)
-    else:
-        return "Only POST requests are allowed for this route."
+    print("Start generation process ...")
+    playlist_description = request.form["description"]
+    print("Description ingested ...\n'{}'".format(playlist_description))
+    playlist_content = query_gpt(query=playlist_description)
+    print("Content retrieved ...\n'{}'".format(playlist_content))
+    playlist_name = "Test_full"
+    playlist_address = create_playlist(playlist_name, playlist_description, playlist_content)
+    return redirect(playlist_address)
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from spotipy.oauth2 import SpotifyOAuth
 
 def create_playlist(playlist_name, playlist_description, playlist_content):
     # authenticate
+    print("Authenticate at spotify ...")
     scope = "playlist-modify-private"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
@@ -14,12 +15,17 @@ def create_playlist(playlist_name, playlist_description, playlist_content):
     items_to_add = []
     for song in song_list:
         if song:
+            print("Querying for song ...\n{}".format(song))
             spotify_result = sp.search(q=song, type="track")
-            print(song)
-            items_to_add.append(spotify_result['tracks']['items'][0]['uri'])
-            print(spotify_result['tracks']['items'][0]['uri'])
+            song_uri = spotify_result['tracks']['items'][0]['uri']
+            if song_uri:
+                print("Adding spotify URI for song ...\n{}".format(song_uri))
+                items_to_add.append(song_uri)
+            else:
+                print("Song not found ...")
 
     # create playlist
+    print("Creating playlist ...")
     user_data = sp.current_user()
     my_playlist = sp.user_playlist_create(user=user_data['id'],
                                           name=playlist_name,
