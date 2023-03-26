@@ -2,18 +2,15 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
 
-def create_playlist(playlist_name, playlist_description, playlist_content):
+def create_playlist(playlist_name, playlist_description, songs):
     # authenticate
     print("Authenticate at spotify ...")
     scope = "playlist-modify-private"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
-    # parse song list
-    song_list = playlist_content.split(", ")
-
     # search for songs on spotify and build list
     items_to_add = []
-    for song in song_list:
+    for song in songs:
         if song:
             print("Querying for song ...\n{}".format(song))
             spotify_result = sp.search(q=song, type="track")

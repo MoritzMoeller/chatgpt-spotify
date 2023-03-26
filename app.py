@@ -15,10 +15,10 @@ def generate():
     print("Start generation process ...")
     playlist_description = request.form["description"]
     print("Description ingested ...\n'{}'".format(playlist_description))
-    playlist_content = query_gpt(query=playlist_description)
-    print("Content retrieved ...\n'{}'".format(playlist_content))
-    playlist_name = "Test_full"
-    playlist_address = create_playlist(playlist_name, playlist_description, playlist_content)
+    content = query_gpt(query=playlist_description)
+    print("Content retrieved ...")
+    print("Title: '{}'".format(content["title"]))
+    playlist_address = create_playlist(content["title"], playlist_description, content["songs"])
     return redirect(playlist_address)
 
 
