@@ -1,5 +1,6 @@
-set_env_variables.sh
-Playlist from text.ipynb
-Text from promt.ipynb
-.ipynb_checkpoints
+secrets/
+notebooks/
+__pycache__/
+.idea/
 .cache
+.DS_store

@@ -5,7 +5,7 @@ from spotipy.oauth2 import SpotifyOAuth
 def create_playlist(playlist_name, playlist_description, playlist_content):
     # authenticate
     scope = "playlist-modify-private"
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
     # parse song list
     song_list = playlist_content.split(", ")
