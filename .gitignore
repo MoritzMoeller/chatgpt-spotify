@@ -1,6 +1,6 @@
 secrets/
 notebooks/
-__pycache__/
-.idea/
+# __pycache__/
+# .idea/
 .cache
-.DS_store
+# .DS_store
