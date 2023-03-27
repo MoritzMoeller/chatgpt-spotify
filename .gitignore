@@ -2,5 +2,5 @@ secrets/
 notebooks/
 __pycache__/
 .idea/
-.cache
 .DS_store
+.flask_session/
