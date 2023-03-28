@@ -1,6 +1,3 @@
-import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-
 
 def create_playlist(playlist_name, playlist_description, songs, sp):
 
