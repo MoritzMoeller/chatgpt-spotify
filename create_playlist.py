@@ -3,19 +3,6 @@ from spotipy.oauth2 import SpotifyOAuth
 
 
 def create_playlist(playlist_name, playlist_description, songs, sp):
-    # authenticate
-    print("Authenticate at spotify ...")
-
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
-    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
-    if not auth_manager.validate_token(cache_handler.get_cached_token()):
-        return redirect('/')
-
-    spotify = spotipy.Spotify(auth_manager=auth_manager)
-
-
-    scope = "playlist-modify-private"
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
     # search for songs on spotify and build list
     items_to_add = []
