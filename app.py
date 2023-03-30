@@ -3,6 +3,7 @@ from flask_session import Session
 from create_playlist import create_playlist
 from query_gpt import query_gpt
 import spotipy
+import os
 
 app = Flask(__name__)
 
