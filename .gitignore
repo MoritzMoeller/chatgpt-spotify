@@ -1,6 +1,6 @@
-secrets/
 notebooks/
 __pycache__/
 .idea/
-.DS_store
 .flask_session/
+.DS_store
+.env
