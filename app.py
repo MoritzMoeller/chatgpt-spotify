@@ -23,24 +23,43 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/generate', methods=['GET', 'POST'])
-def generate():
+@app.route('/login')
+def login():
 
-    cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(session)
+    cache_handler = spotipy.cache_handler.CacheFileHandler()
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='playlist-modify-private',
                                                cache_handler=cache_handler,
                                                show_dialog=True)
 
-    # Arrive from landing page via button
-    if request.method == 'POST':
-        session['playlist_description'] = request.form["description"]
-
-        if not auth_manager.validate_token(cache_handler.get_cached_token()):
-            return redirect(auth_manager.get_authorize_url())
-
-    # Arrive from spotify authentication via redirect
-    if request.method == 'GET' and request.args.get("code"):
+    # Arrive from Spotify authentification
+    if request.args.get("code"):
         auth_manager.get_access_token(request.args.get("code"))
+
+    # if not yet authorized, send to authorization
+    # TODO: Could add check whether the correct account is authorized
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect(auth_manager.get_authorize_url())
+
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+    account_address = spotify.me()['external_urls']['spotify']
+    return redirect(account_address)
+
+
+@app.route('/generate', methods=['POST'])
+def generate():
+
+    cache_handler = spotipy.cache_handler.CacheFileHandler()
+    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='playlist-modify-private',
+                                               cache_handler=cache_handler,
+                                               show_dialog=True)
+
+
+
+    # Arrive from landing page via button
+    session['playlist_description'] = request.form["description"]
+
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return render_template('not_logged_in.html')
 
     # Query ChatGPT
     playlist_description = session['playlist_description']
