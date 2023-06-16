@@ -19,7 +19,7 @@ def create_playlist(playlist_name, playlist_description, songs, sp):
     user_data = sp.current_user()
     my_playlist = sp.user_playlist_create(user=user_data['id'],
                                           name=playlist_name,
-                                          public=False,
+                                          public=True,
                                           description=playlist_description)
 
     # add songs to playlist

@@ -14,6 +14,10 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 
+# Set some global variables
+username='epic_playlist_generator'
+scope='playlist-modify-public'
+
 # create flask-session
 Session(app)
 
@@ -26,8 +30,8 @@ def index():
 @app.route('/login')
 def login():
 
-    cache_handler = spotipy.cache_handler.CacheFileHandler(username='epic_playlist_generator')
-    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='playlist-modify-private',
+    cache_handler = spotipy.cache_handler.CacheFileHandler(username=username)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
                                                cache_handler=cache_handler,
                                                show_dialog=True)
 
@@ -48,8 +52,8 @@ def login():
 @app.route('/generate', methods=['POST'])
 def generate():
 
-    cache_handler = spotipy.cache_handler.CacheFileHandler()
-    auth_manager = spotipy.oauth2.SpotifyOAuth(scope='playlist-modify-private',
+    cache_handler = spotipy.cache_handler.CacheFileHandler(username=username)
+    auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
                                                cache_handler=cache_handler,
                                                show_dialog=True)
 
