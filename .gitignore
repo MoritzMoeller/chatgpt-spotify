@@ -4,4 +4,4 @@ __pycache__/
 .flask_session/
 .DS_store
 .env
-.cache
+.cache-epic_playlist_generator

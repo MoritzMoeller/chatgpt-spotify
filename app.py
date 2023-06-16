@@ -26,7 +26,7 @@ def index():
 @app.route('/login')
 def login():
 
-    cache_handler = spotipy.cache_handler.CacheFileHandler()
+    cache_handler = spotipy.cache_handler.CacheFileHandler(username='epic_playlist_generator')
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope='playlist-modify-private',
                                                cache_handler=cache_handler,
                                                show_dialog=True)
