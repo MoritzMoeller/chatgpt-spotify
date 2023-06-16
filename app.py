@@ -32,8 +32,8 @@ def login():
                                                show_dialog=True)
 
     # Arrive from Spotify authentification
-    if request.args.get("code"):
-        auth_manager.get_access_token(request.args.get("code"))
+    if request.args.get('code'):
+        auth_manager.get_access_token(request.args.get('code'))
 
     # if not yet authorized, send to authorization
     # TODO: Could add check whether the correct account is authorized
