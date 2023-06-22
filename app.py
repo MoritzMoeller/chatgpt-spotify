@@ -15,8 +15,8 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_FILE_DIR'] = './.flask_session/'
 
 # Set some global variables
-username='epic_playlist_generator'
-scope='playlist-modify-public'
+username = 'epic_playlist_generator'
+scope = 'playlist-modify-public'
 
 # create flask-session
 Session(app)
@@ -29,7 +29,6 @@ def index():
 
 @app.route('/login')
 def login():
-
     cache_handler = spotipy.cache_handler.CacheFileHandler(username=username)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
                                                cache_handler=cache_handler,
@@ -51,13 +50,10 @@ def login():
 
 @app.route('/generate', methods=['POST'])
 def generate():
-
     cache_handler = spotipy.cache_handler.CacheFileHandler(username=username)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
                                                cache_handler=cache_handler,
                                                show_dialog=True)
-
-
 
     # Arrive from landing page via button
     session['playlist_description'] = request.form["description"]
@@ -75,9 +71,8 @@ def generate():
     return redirect(playlist_address)
 
 
-@app.route('/redirect', methods=['POST'])
-def redirect():
-
+@app.route('/get_link', methods=['POST'])
+def get_link():
     """
     cache_handler = spotipy.cache_handler.CacheFileHandler(username=username)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
@@ -101,7 +96,8 @@ def redirect():
     playlist_address = create_playlist(content["title"], playlist_description, content["songs"], spotify)
     return redirect(playlist_address)
     """
-    link = {'link': 'https://google.com'}
+
+    link = {'link': 'https://google.com', 'description': request.form["description"]}
     return link
 
 
