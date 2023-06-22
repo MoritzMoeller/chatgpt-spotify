@@ -98,8 +98,9 @@ def get_link():
     """
 
     # link = {'link': 'https://google.com', 'description': request.form["description"]}
+    content = request.get_json()
 
-    link = {'link': 'https://google.com'}
+    link = {'link': 'https://google.com', "description": content['description']}
     return link
 
 
