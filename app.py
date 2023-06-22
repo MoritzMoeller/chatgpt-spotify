@@ -97,7 +97,9 @@ def get_link():
     return redirect(playlist_address)
     """
 
-    link = {'link': 'https://google.com', 'description': request.form["description"]}
+    # link = {'link': 'https://google.com', 'description': request.form["description"]}
+
+    link = {'link': 'https://google.com'}
     return link
 
 
