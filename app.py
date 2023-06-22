@@ -73,19 +73,18 @@ def generate():
 
 @app.route('/get_link', methods=['POST'])
 def get_link():
-    """
+
     cache_handler = spotipy.cache_handler.CacheFileHandler(username=username)
     auth_manager = spotipy.oauth2.SpotifyOAuth(scope=scope,
                                                cache_handler=cache_handler,
                                                show_dialog=True)
 
-
-
-    # Arrive from landing page via button
-    session['playlist_description'] = request.form["description"]
-
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
         return render_template('not_logged_in.html')
+
+    # Unpack description
+    content = request.get_json()
+    session['playlist_description'] = content['description']
 
     # Query ChatGPT
     playlist_description = session['playlist_description']
@@ -94,13 +93,8 @@ def get_link():
     # Create playlist
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     playlist_address = create_playlist(content["title"], playlist_description, content["songs"], spotify)
-    return redirect(playlist_address)
-    """
 
-    # link = {'link': 'https://google.com', 'description': request.form["description"]}
-    content = request.get_json()
-
-    link = {'link': 'https://google.com', "description": content['description']}
+    link = {'link': playlist_address}
     return link
 
 
