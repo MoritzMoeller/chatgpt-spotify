@@ -67,8 +67,8 @@ def generate():
 
     # Create playlist
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    playlist_address = create_playlist(content["title"], playlist_description, content["songs"], spotify)
-    return redirect(playlist_address)
+    playlist = create_playlist(content["title"], playlist_description, content["songs"], spotify)
+    return redirect(playlist['url'])
 
 
 @app.route('/get_link', methods=['POST'])
@@ -92,9 +92,9 @@ def get_link():
 
     # Create playlist
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    playlist_address = create_playlist(content["title"], playlist_description, content["songs"], spotify)
+    playlist = create_playlist(content["title"], playlist_description, content["songs"], spotify)
 
-    link = {'link': playlist_address}
+    link = {'link': playlist["url"], 'success': playlist["success"]}
     return link
 
 
